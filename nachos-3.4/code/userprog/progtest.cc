@@ -47,7 +47,6 @@ void StartProcess_byid(int id)
 {
     char *fileName = procTable->GetProcessName(id);
 
-    procTable->GetPCB(id)->thread->Print();
     if(fileName == NULL)
     {
         printf("\nStartProcess_byid : wrong id !!.");

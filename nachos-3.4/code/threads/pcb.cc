@@ -15,7 +15,7 @@ PCB::PCB(int pid)
     thread = NULL;
 
     joinSema = new Semaphore(" joinSema", 0); // 0 - chua thuc hien
-    mutex = new Semaphore("mutex", 1); // 1 - dang thuc hien
+    mutex = new Semaphore("mutex", 1);        // 1 - dang thuc hien
 }
 
 PCB::~PCB()
@@ -23,9 +23,10 @@ PCB::~PCB()
 
     delete joinSema;
     delete mutex;
-    if (thread != NULL && thread != currentThread)
+    if (thread != NULL)
     {
         thread->FreeSpace();
+        thread->Finish();
     }
 }
 
@@ -83,24 +84,30 @@ int PCB::GetExitCode()
 char *PCB::GetName()
 {
     return thread->getName();
-}   
+}
 
 #pragma endregion SET_GET_METHOD
 
-
 void PCB::JoinWait()
 {
+    // khong co process con thi k can doi !!
+    if (numwait == 0)
+    {
+        return;
+    }
     joinSema->P();
 }
 
 void PCB::JoinRelease()
 {
-    PCB* parent = procTable->GetPCB(parentID);
-    if(parent==NULL){
+    PCB *parent = procTable->GetPCB(parentID);
+    if (parent == NULL)
+    {
         return;
     }
     parent->DecNumWait();
-    if(parent->GetNumWait()==0){
+    if (parent->GetNumWait() == 0)
+    {
         parent->joinSema->V();
     }
 }
@@ -118,4 +125,3 @@ void PCB::DecNumWait()
     numwait--;
     mutex->V();
 }
-

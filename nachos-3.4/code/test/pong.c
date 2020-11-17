@@ -6,6 +6,4 @@ void main(){
 	{
 		PrintConsole("B");
 	}
-	PrintConsole("B in xong !!\n");
-
 }

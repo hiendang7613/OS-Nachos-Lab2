@@ -53,12 +53,10 @@ char *User2System(int virtAddr, int limit)
     if (kernelBuf == NULL)
         return kernelBuf;
     memset(kernelBuf, 0, limit + 1);
-    //printf("\n Filename u2s:");
     for (i = 0; i < limit; i++)
     {
         machine->ReadMem(virtAddr + i, 1, &oneChar);
         kernelBuf[i] = (char)oneChar;
-        //printf("%c",kernelBuf[i]);
         if (oneChar == 0)
             break;
     }
@@ -584,12 +582,12 @@ void ExceptionHandler(ExceptionType which)
         }
         case SC_Exit:
         {
-            // Function :   void Exit(SpaceId pid);	
+            // Function :   void Exit(int status);	
             // Input :
-            //    id - processID
-            int pid = machine->ReadRegister(4);
-		
-            procTable->ExitUpdate(pid);
+            //    status - exitcode
+            int exitcode = machine->ReadRegister(4);
+
+            procTable->ExitUpdate(exitcode);
             break; 
         }
         default:
