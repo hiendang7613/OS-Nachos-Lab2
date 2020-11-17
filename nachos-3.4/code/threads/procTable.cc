@@ -94,7 +94,8 @@ int ProcTable::ExitUpdate(int exitcode)
 {
     int curPID = currentThread->pcb->GetID();
 
-    ExitChildProc(curPID);
+    procTable->JoinUpdate(curPID);
+    procTable->JoinReleaseUpdate(curPID);
 
     // ? exit Main process !!
     if (curPID == 0)
@@ -109,12 +110,6 @@ int ProcTable::ExitUpdate(int exitcode)
     Remove(curPID);                  // xoa pcb khoi pcbTable
 
     return exitcode;
-}
-
-void ProcTable::ExitChildProc(int pid)
-{
-    procTable->JoinUpdate(pid);
-    procTable->JoinReleaseUpdate(pid);
 }
 
 // Process hien tai joinwait process voi pid
@@ -196,18 +191,3 @@ char *ProcTable::GetProcessName(int pid)
     return pcbTable[pid]->GetName();
 }
 
-// Tim process con
-int ProcTable::FindChild(int pid, int start)
-{
-    for (int i = start; i < ProcTableSize; i++)
-    {
-        if (pcbTable[i] != NULL)
-        {
-            if (pcbTable[i]->GetParentID() == pid)
-            {
-                return i;
-            }
-        }
-    }
-    return -1;
-}

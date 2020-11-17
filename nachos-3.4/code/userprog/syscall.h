@@ -36,7 +36,6 @@
 
 // Define new Syscall 
 
-
 #ifndef IN_ASM
 typedef int SpaceId;	
 

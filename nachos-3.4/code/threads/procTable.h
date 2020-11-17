@@ -13,8 +13,6 @@ class ProcTable
     PCB **pcbTable;
     Semaphore *bitmapSema;          // ngan nap dong thoi 2 process
 
-    void ExitChildProc(int pid);     // exit all child process
-
 public:
     PCB* GetPCB(int pid);
     
@@ -28,11 +26,8 @@ public:
 
     int GetFreeSlot();      // Tim cho trong
     bool IsExist(int pid);  // pID co ton tai trong pcbTable ?
-
     void Remove(int pid);   // Ket thuc process va xoa bo nho cua pcb do
-
     char *GetProcessName(int pid); // Ten process[pid]
 
-    int FindChild(int pid, int start=0);    // Tim process con
 };
 #endif // PROCTABLE_H

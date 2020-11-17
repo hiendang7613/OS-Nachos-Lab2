@@ -38,7 +38,7 @@ extern Timer *timer;				// the hardware alarm clock
 extern Machine* machine;				// user program memory and registers
 extern SynchConsole* gSynchConsole; 	// declare global gSynchConsole
 
-extern Semaphore* addrLock;
+extern Semaphore* addrLock;				// chi cap phat bo nho 1 process 1 luc
 extern BitMap* gPhysPageBitMap;			// quan ly cac frame vat ly tren RAM
 extern ProcTable *procTable;			// quan ly cac proccess
 

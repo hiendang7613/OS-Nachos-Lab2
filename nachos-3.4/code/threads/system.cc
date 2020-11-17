@@ -191,9 +191,9 @@ Cleanup()
     delete machine;
     delete gSynchConsole;     // Deallocate gSynchConsole
 
-    //delete addrLock;
-    //delete gPhysPageBitMap;
-    //delete procTable;
+    // delete addrLock;
+    // delete gPhysPageBitMap;
+    // delete procTable;
 #endif
 
 #ifdef FILESYS_NEEDED
